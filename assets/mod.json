@@ -1,11 +1,11 @@
 {
-  "name": "modtemplate",
-  "displayName": "Template",
-  "author": "[#8738ff[]]Sonnicon[[]]",
-  "description": "Gradle jar Mindustry mod template",
-  "version": "0",
-  "main": "sonnicon.modtemplate.ModTemplate",
-  "minGameVersion": "105",
+  "name": "namelessarsenal",
+  "displayName": "Nameless Arsenal",
+  "author": "Light134",
+  "description": "My first java mod which adds turrets and units. Work in progress.",
+  "version": "Alpha v0",
+  "main": "light134.NamelessArsenal",
+  "minGameVersion": "125",
   "dependencies": [],
   "hidden": false,
   "java": true

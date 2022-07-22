@@ -1,8 +1,8 @@
-package sonnicon.modtemplate;
+package light134;
 
 import mindustry.mod.Mod;
 
-public class ModTemplate extends Mod{
+public class NamelessArsenal extends Mod{
 
     @Override
     public void init(){
