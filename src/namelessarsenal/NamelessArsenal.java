@@ -1,5 +1,6 @@
-package light134;
+package namelessarsenal;
 
+import namelessarsenal.contents.Namelessblock;
 import mindustry.mod.Mod;
 
 public class NamelessArsenal extends Mod{
@@ -10,5 +11,6 @@ public class NamelessArsenal extends Mod{
 
     @Override
     public void loadContent(){
+        Namelessblock.load();
     }
 }

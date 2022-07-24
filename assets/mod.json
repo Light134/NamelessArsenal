@@ -4,8 +4,8 @@
   "author": "Light134",
   "description": "My first java mod which adds turrets and units. Work in progress.",
   "version": "Alpha v0",
-  "main": "light134.NamelessArsenal",
-  "minGameVersion": "125",
+  "main": "namelessarsenal.NamelessArsenal",
+  "minGameVersion": "136",
   "dependencies": [],
   "hidden": false,
   "java": true

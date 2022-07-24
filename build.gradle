@@ -15,7 +15,9 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.Anuken.Mindustry:core:$pMindustryVersion"
+    annotationProcessor 'com.github.Anuken:jabel:0.8.0'
+    compileOnly "com.github.Anuken.Mindustry:core:v136"
+    compileOnly "com.github.Anuken.Arc:arc-core:df1b21ce56"
 }
 
 jar {
@@ -72,3 +74,14 @@ task dexify(type: Jar) {
 }
 
 task buildDex dependsOn "build", "dexify"
+
+tasks.withType(JavaCompile){
+    targetCompatibility = 8
+    sourceCompatibility = JavaVersion.VERSION_17
+    options.encoding = "UTF-8"
+    options.compilerArgs += ["-Xlint:deprecation"]
+    if(JavaVersion.current() != JavaVersion.VERSION_1_8){
+        options.compilerArgs.addAll(['--release', '8'])
+    }
+    compileJava.options.fork = true
+}
