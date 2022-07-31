@@ -1,7 +1,7 @@
 {
   "name": "namelessarsenal",
   "displayName": "Nameless Arsenal",
-  "author": "Light134",
+  "author": "Light134,sssim",
   "description": "My first java mod which adds turrets and units. Work in progress.",
   "version": "Alpha v0",
   "main": "namelessarsenal.NamelessArsenal",

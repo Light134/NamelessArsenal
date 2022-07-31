@@ -25,10 +25,74 @@ public class Namelessblock {
     thales, archimedes, fermat, riemann, euler, laplace;
 
     public static void load(){
+        moderato = new GatlingTurret("moderato") {{
+            //materials to build this block and category of it
+            requirements(Category.turret, ItemStack.with(Items.copper, 50, Items.lead, 50));
+            // block health & size
+            health = 200;
+            size = 1;
+            // main stat(reload,shootCone,rotateSpeed,range,targetAir)
+            reload = 12f; //60f = 1 second
+            shootCone = 10f;
+            rotateSpeed = 3f; //1f = 60 degree per second
+            range = 96f; //8f = 1 block
+            targetAir = true;
+            // Visual & Sound effect(shootEffect,heatColor,recoil,shootSound)
+            shootEffect = Fx.lightningShoot;
+            heatColor = Color.red;
+            recoil = 0.2f;
+            shootSound = Sounds.shoot;
+            // GatlingTurret stats(maxAcceleration,)
+            maxHeat = 10f;
+            maxAcceleration = 10;
+            maxCooldown = 0.3f;
+
+            ammo(
+                    Items.copper,  new BasicBulletType(12f, 6){{
+                        width = 3.5f;
+                        height = 9f;
+                        lifetime = 8f;
+                        ammoMultiplier = 2;
+                    }}
+            );
+        }};
+
+        allegretto = new GatlingTurret("allegretto") {{
+            //materials to build this block and category of it
+            requirements(Category.turret, ItemStack.with(Items.copper, 120, Items.lead, 75, Items.silicon, 30));
+            // block health & size
+            health = 390;
+            size = 2;
+            // main stat(reload,shootCone,rotateSpeed,range,targetAir)
+            reload = 10f; //60f = 1 second
+            shootCone = 10f;
+            rotateSpeed = 3f; //1f = 60 degree per second
+            range = 144f; //8f = 1 block
+            targetAir = true;
+            // Visual & Sound effect(shootEffect,heatColor,recoil,shootSound)
+            shootEffect = Fx.lightningShoot;
+            heatColor = Color.red;
+            recoil = 0.2f;
+            shootSound = Sounds.shoot;
+            // GatlingTurret stats(maxAcceleration,)
+            maxHeat = 10f;
+            maxAcceleration = 12;
+            maxCooldown = 0.25f;
+
+            ammo(
+                    Items.lead,  new BasicBulletType(12f, 10){{
+                        width = 3.5f;
+                        height = 12f;
+                        lifetime = 12f;
+                        ammoMultiplier = 2;
+                    }}
+            );
+        }};
+
         spark = new PowerTurret("spark"){{
             requirements(Category.turret, ItemStack.with(Items.copper, 50, Items.lead, 50)); //materials to build this block and category of it
             // block health & size
-            health = 260;
+            health = 390;
             size = 1;
             // main stat(reload,shootCone,rotateSpeed,range,targetAir)
             reload = 18f; //60f = 1 second
@@ -63,33 +127,6 @@ public class Namelessblock {
                     buildingDamageMultiplier = 0.25f; //damage multiplier to buildings
                 }};
             }};
-        }};
-
-        moderato = new GatlingTurret("moderato") {{
-            requirements(Category.turret, ItemStack.with(Items.copper, 50, Items.lead, 50)); //materials to build this block and category of it
-            // block health & size
-            health = 260;
-            size = 1;
-            // main stat(reload,shootCone,rotateSpeed,range,targetAir)
-            reload = 12f; //60f = 1 second
-            shootCone = 20f;
-            rotateSpeed = 8f;
-            range = 56f; //8f = 1 block
-            targetAir = true;
-            // Visual & Sound effect(shootEffect,heatColor,recoil,shootSound)
-            shootEffect = Fx.lightningShoot;
-            heatColor = Color.red;
-            recoil = 0.2f;
-            shootSound = Sounds.spark;
-
-            ammo(
-                    Items.copper,  new BasicBulletType(2.5f, 9){{
-                        width = 7f;
-                        height = 9f;
-                        lifetime = 60f;
-                        ammoMultiplier = 2;
-                    }}
-            );
         }};
     }
 }
