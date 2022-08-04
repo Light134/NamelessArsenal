@@ -48,10 +48,10 @@ public class Namelessblock {
             maxCooldown = 0.3f;
 
             ammo(
-                    Items.copper,  new BasicBulletType(12f, 6){{
+                    Items.copper,  new BasicBulletType(8f, 6){{
                         width = 3.5f;
                         height = 9f;
-                        lifetime = 8f;
+                        lifetime = 12f;
                         ammoMultiplier = 2;
                     }}
             );
@@ -61,7 +61,7 @@ public class Namelessblock {
             //materials to build this block and category of it
             requirements(Category.turret, ItemStack.with(Items.copper, 120, Items.lead, 75, Items.silicon, 30));
             // block health & size
-            health = 390;
+            health = 1000;
             size = 2;
             // main stat(reload,shootCone,rotateSpeed,range,targetAir)
             reload = 10f; //60f = 1 second
@@ -80,10 +80,42 @@ public class Namelessblock {
             maxCooldown = 0.25f;
 
             ammo(
-                    Items.lead,  new BasicBulletType(12f, 10){{
+                    Items.lead,  new BasicBulletType(8f, 10){{
                         width = 3.5f;
                         height = 12f;
-                        lifetime = 12f;
+                        lifetime = 18f;
+                        ammoMultiplier = 2;
+                    }}
+            );
+        }};
+
+        allegro = new GatlingTurret("allegro") {{
+            //materials to build this block and category of it
+            requirements(Category.turret, ItemStack.with(Items.copper, 300, Items.lead, 150, Items.silicon, 90));
+            // block health & size
+            health = 1100;
+            size = 3;
+            // main stat(reload,shootCone,rotateSpeed,range,targetAir)
+            reload = 6f; //60f = 1 second
+            shootCone = 10f;
+            rotateSpeed = 3f; //1f = 60 degree per second
+            range = 176f; //8f = 1 block
+            targetAir = true;
+            // Visual & Sound effect(shootEffect,heatColor,recoil,shootSound)
+            shootEffect = Fx.lightningShoot;
+            heatColor = Color.red;
+            recoil = 0.2f;
+            shootSound = Sounds.shoot;
+            // GatlingTurret stats(maxAcceleration,)
+            maxHeat = 10f;
+            maxAcceleration = 20;
+            maxCooldown = 0.15f;
+
+            ammo(
+                    Items.lead,  new BasicBulletType(8f, 14){{
+                        width = 3.5f;
+                        height = 12f;
+                        lifetime = 22f;
                         ammoMultiplier = 2;
                     }}
             );
