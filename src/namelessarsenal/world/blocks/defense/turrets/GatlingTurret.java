@@ -1,114 +1,109 @@
 package namelessarsenal.world.blocks.defense.turrets;
 
 import arc.graphics.Color;
-import arc.math.Mathf;
-import mindustry.world.blocks.defense.turrets.*;
 import arc.graphics.g2d.*;
+import arc.math.Mathf;
+import arc.util.Log;
 import arc.util.Time;
-import mindustry.entities.bullet.BulletType;
+import mindustry.world.blocks.defense.turrets.*;
+import mindustry.entities.Mover;
+import mindustry.entities.bullet.*;
 import mindustry.graphics.*;
 
-
 public class GatlingTurret extends ItemTurret {
-    public float maxHeat = 10f; // how much seconds turret can withstand before overheat
-    public int maxAcceleration = 0; // how much shot needed for maximum acceleration
-    public float maxCooldown = 0f; //how much seconds needed to start cooldown
 
-    public GatlingTurret(String name){
+    // GatlingTurret main stats(maxAccel,maxWindup,cooltime)
+    public float maxAccel = 2f; // Max multiplier of firerate
+    public int maxWindup = 0; // How much shot needed for maximum windup
+    public float cooltime = 0f; // How much seconds needed to start cooling
+    // GatlingTurret extra stats
+    public int bulletOffset = 0; // bullet offset when firing.
+    public int Barrelcount = 1;
+
+    public GatlingTurret(String name) {
         super(name);
         hasItems = true;
     }
+
     public class GatlingTurretBuild extends ItemTurretBuild {
-        public float heat = 0f;
-        public float acceleration = 0f;
+        public float windup = 0f;
         public float cooldown = 0;
-        public float cooldownDelay = 0;
-        public boolean heatSwitch = false;
         public boolean cooldownSwitch = true;
-        public float interface1 = 0;
-        public float interface2 = 0;
+        public float ui_windup = 0;
+
+
         @Override
         public void updateTile() {
             super.updateTile();
 
-            interface1 = Mathf.lerpDelta(interface1, acceleration / maxAcceleration, 0.05f);
-            interface2 = Mathf.lerpDelta(interface2, heat / maxHeat, 0.2f);
+            ui_windup = Mathf.lerpDelta(ui_windup, windup / maxWindup, 0.05f);
 
-            if (heat > maxHeat && !heatSwitch) {
-                heatSwitch = true;
-                acceleration = 0;
-                heat = maxHeat;
-            }
-
-            if (heatSwitch){
-                if(heat > 0) heat -= Time.delta / 30;
-                else {
-                    heatSwitch = false;
-                    heat = 0;
-                }
-            }else if (cooldownSwitch){
-                if(heat > 0 && !heatSwitch) heat -= Time.delta / 30;
-                else heat = 0;
-                if(acceleration != 0 && heat == 0) {
-                    cooldownDelay += Time.delta / 60;
-                    if (cooldownDelay > maxCooldown){
-                        acceleration -= 1;
-                        cooldownDelay = 0;
-                    }
+            if (cooldownSwitch) {
+                if (windup > 0)
+                {
+                    windup -= 1;
+                    Log.info("Windup: @", windup);
                 }
             }
-
-            if(!cooldownSwitch) {
+            else {
                 cooldown += Time.delta / 60;
-                if (cooldown > maxCooldown){
+                if (cooldown >= cooltime) {
                     cooldownSwitch = true;
-                    cooldown = 1;
+                    cooldown = cooltime;
                 }
             }
         }
+
         @Override
         protected void shoot(BulletType type) {
-            if(!heatSwitch) {
-                super.shoot(type);
-                if(acceleration < maxAcceleration) {
-                    acceleration += 1;
-                } else if(acceleration == maxAcceleration) {
-                    heat += Time.delta / (120 / reload);
-                }
+            super.shoot(type);
+
+            if(windup < maxWindup) {
+                windup += 1;
                 cooldownSwitch = false;
                 cooldown = 0f;
             }
+            // Debug only Script.
+            // Log.info("Firerate: @",(1f + ((maxAccel -1) * (windup / maxWindup))));
+        }
+
+        @Override
+        protected void bullet(BulletType type, float xOffset, float yOffset, float angleOffset, Mover mover) {
+            super.bullet(type, xOffset+Mathf.random(-bulletOffset, bulletOffset), yOffset, angleOffset, mover);
         }
 
         @Override
         protected void updateShooting() {
-            if(this.heatSwitch) return;
             super.updateShooting();
         }
 
         @Override
         protected float baseReloadSpeed() {
-            return this.efficiency() * (1f + acceleration / maxAcceleration);
+            return this.efficiency() * (1f + ((maxAccel -1) * (windup / maxWindup)));
         }
 
         @Override
-        public void drawSelect(){
-            Drawf.dashCircle(x, y, range, team.color);
-            Draw.z(Layer.effect);
-            Lines.stroke(interface1*8);
-            Draw.color(0,(interface1 * 0.25f) + 0.5f,(interface1 * 0.25f) + 0.75f);
-            Lines.arc(x, y, range, interface1 ,rotation,200);
-            Draw.color();
-            Draw.reset();
+        public void drawSelect() {
+            super.drawSelect();
+        }
 
-            Drawf.dashCircle(x, y, range, team.color);
-            Draw.z(Layer.effect);
-            Lines.stroke(interface2*6);
-            Draw.color(Mathf.random(0f,0.5f) + 0.5f,0.5f,(interface2 * 0.75f) + 0.25f);
-            Lines.arc(x, y, range, interface2 ,rotation,200);
-            Draw.color();
-            Draw.reset();
+        @Override
+        public void draw() {
+            super.draw();
 
+            if(isControlled()) {
+                Draw.z(99f);
+                Draw.color(new Color(0.0f, 0.5f+(ui_windup/2f), 1.0f));
+                Fill.rect((x-16)+(ui_windup * 16), (y - 2) - (size * 4), (32 * ui_windup), 4);
+
+                Draw.z(Layer.overlayUI);
+                Draw.color(Color.darkGray);
+                Lines.rect(x-16, (y - 4) - (size * 4), 32, 4);
+                Draw.z(Layer.effect);
+            }
+
+            Draw.reset();
         }
     }
 }
+
