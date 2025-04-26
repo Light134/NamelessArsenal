@@ -15,23 +15,22 @@ public class NamelessTurret {
     // tesla coils
     spark, thunder, lightning, storm, mjollnir, thor,
     // chainguns
-    andantino, moderato, allegretto, allegro, vivace, presto, allegrissimo, vivacissimo, prestissimo,
+    andantino, moderato, allegretto, allegro, vivace, presto, allegrissimo, vivacissimo, prestissimo, tempestissimo,
     // Missile launchers
     troposphere, stratosphere, mesosphere, thermosphere, exosphere, vacuum,
     // Liquidjet cutter
-    misty, drizzle, sprinkle, shower, downpour, hail,
+    mist, drizzle, sprinkle, shower, downpour, hail,
     // Orbital strike beacon
-    halley, Wild, tempel, mcnaught, hartley,
+    halley, Wild, tempel, mcnaught, hartley, chiron,
     // scanner
     thales, archimedes, fermat, riemann, euler, laplace;
 
     public static void load(){
-        andantino = new HeatGatlingTurret("andantino") {{
+        andantino = new GatlingTurret("andantino") {{
             //materials to build this block and category of it
             requirements(Category.turret, ItemStack.with(Items.copper, 50, Items.lead, 50));
             // block health & size
-            health = 200;
-            size = 1;
+            health = 200; size = 1;
             // main stat(reload,shootCone,rotateSpeed,range,targetAir)
             reload = 12f; //60f = 1 second
             shootCone = 15f;
@@ -43,14 +42,12 @@ public class NamelessTurret {
             heatColor = Color.red;
             recoil = 0.2f;
             shootSound = Sounds.shoot;
-            // HeatGatlingTurret main stats (maxAccel,maxHeat,maxWindup,overheatCooltime,cooltime)
-            maxAccel = 2f;
-            maxHeat = 5f;
-            maxWindup = 15;
-            overheatCooltime = 3f;
-            cooltime = 0.2f;
-            // HeatGatlingTurret extras (bulletOffset)
-            bulletOffset = 0;
+            // GatlingTurret main stats(maxAccel, maxWindup, cooltime, cooldownDuration)
+            maxAccel = 2f; maxWindup = 15; cooltime = 0.25f; cooldownDuration = 5f;
+            // GatlingTurret heat stats(enableHeat, maxHeat, overheatCooltime)
+            enableHeat = true; maxHeat = 5f; overheatCooltime = 3f;
+            // GatlingTurret extra stats(Barrelcount,Barreldist)
+            barrelCount = 2; barrelDist = 1;
 
             ammo(
                     Items.copper,  new BasicBulletType(8f, 6){{
@@ -62,12 +59,11 @@ public class NamelessTurret {
             );
         }};
 
-        moderato = new HeatGatlingTurret("moderato") {{
+        moderato = new GatlingTurret("moderato") {{
             //materials to build this block and category of it
             requirements(Category.turret, ItemStack.with(Items.copper, 120, Items.lead, 75, Items.silicon, 30));
             // block health & size
-            health = 1000;
-            size = 2;
+            health = 1000; size = 2;
             // main stat(reload,shootCone,rotateSpeed,range,targetAir)
             reload = 15f; //60f = 1 second
             shootCone = 10f;
@@ -77,16 +73,14 @@ public class NamelessTurret {
             // Visual & Sound effect (shootEffect,heatColor,recoil,shootSound)
             shootEffect = Fx.lightningShoot;
             heatColor = Color.red;
-            recoil = 0.2f;
+            recoil = 0.5f;
             shootSound = Sounds.shoot;
-            // HeatGatlingTurret main stats (maxAccel,maxHeat,maxWindup,overheatCooltime,cooltime)
-            maxAccel = 5f;
-            maxHeat = 10f;
-            maxWindup = 60;
-            overheatCooltime = 4f;
-            cooltime = 0.25f;
-            // HeatGatlingTurret extras (bulletOffset)
-            bulletOffset = 4;
+            // GatlingTurret main stats(maxAccel, maxWindup, cooltime, cooldownDuration)
+            maxAccel = 5f; maxWindup = 60; cooltime = 0.3125f; cooldownDuration = 10f;
+            // GatlingTurret heat stats(enableHeat, maxHeat, overheatCooltime)
+            enableHeat = true; maxHeat = 10f; overheatCooltime = 4f;
+            // GatlingTurret extra stats(Barrelcount, Barreldist, recoils)
+            barrelCount = 2; barrelDist = 2;
 
             ammo(
                     Items.lead,  new BasicBulletType(8f, 10){{
@@ -98,7 +92,7 @@ public class NamelessTurret {
             );
         }};
 
-        allegretto = new HeatGatlingTurret("allegretto") {{
+        allegretto = new GatlingTurret("allegretto") {{
             //materials to build this block and category of it
             requirements(Category.turret, ItemStack.with(Items.copper, 300, Items.lead, 150, Items.silicon, 90));
             // block health & size
@@ -113,16 +107,14 @@ public class NamelessTurret {
             // Visual & Sound effect(shootEffect,heatColor,recoil,shootSound)
             shootEffect = Fx.lightningShoot;
             heatColor = Color.red;
-            recoil = 0.2f;
+            recoil = 0.7f;
             shootSound = Sounds.shoot;
-            // HeatGatlingTurret main stats(maxAccel,maxHeat,maxWindup,overheatCooltime,cooltime)
-            maxAccel = 3f;
-            maxHeat = 15f;
-            maxWindup = 60;
-            overheatCooltime = 5f;
-            cooltime = 0.1f;
-            // HeatGatlingTurret extras (bulletOffset)
-            bulletOffset = 4;
+            // GatlingTurret main stats(maxAccel, maxWindup, cooltime, cooldownDuration)
+            maxAccel = 3f; maxWindup = 60; cooltime = 0.125f; cooldownDuration = 15f;
+            // GatlingTurret heat stats(enableHeat, maxHeat, overheatCooltime)
+            enableHeat = true; maxHeat = 15f; overheatCooltime = 5f;
+            // GatlingTurret extra stats(Barrelcount,Barreldist)
+            barrelCount = 1; barrelDist = 1;
 
             ammo(
                     Items.lead,  new BasicBulletType(8f, 14){{
@@ -149,14 +141,14 @@ public class NamelessTurret {
             // Visual & Sound effect(shootEffect,heatColor,recoil,shootSound)
             shootEffect = Fx.lightningShoot;
             heatColor = Color.red;
-            recoil = 0.2f;
+            recoil = 1f;
             shootSound = Sounds.shootBig;
-            // GatlingTurret main stats(maxAccel,maxWindup,cooltime)
-            maxAccel = 10f;
-            maxWindup = 275;
-            cooltime = 0.2f;
-            // GatlingTurret extras (bulletOffset)
-            bulletOffset = 6; //4 = 1 block
+            // GatlingTurret main stats(maxAccel, maxWindup, cooltime, cooldownDuration)
+            maxAccel = 10f; maxWindup = 275; cooltime = 0.25f; cooldownDuration = 4f;
+            // GatlingTurret heat stats(enableHeat, maxHeat, overheatCooltime)
+            enableHeat = false; maxHeat = -1f; overheatCooltime = -1f;
+            // GatlingTurret extra stats(Barrelcount,Barreldist)
+            barrelCount = 4; barrelDist = 3.3f;
 
             ammo(
                     Items.titanium,  new BasicBulletType(16f, 16){{
@@ -183,14 +175,16 @@ public class NamelessTurret {
             // Visual & Sound effect(shootEffect,heatColor,recoil,shootSound)
             shootEffect = Fx.lightningShoot;
             heatColor = Color.red;
-            recoil = 0.2f;
+            recoil = 1.3f;
             shootSound = Sounds.shootBig;
-            // GatlingTurret main stats(maxAccel,maxWindup,cooltime)
-            maxAccel = 20f;
-            maxWindup = 630;
-            cooltime = 0.3333f;
-            // GatlingTurret extras (bulletOffset)
-            bulletOffset = 6; //4 = 1 block
+            // GatlingTurret main stats(maxAccel, maxWindup, cooltime, cooldownDuration)
+            maxAccel = 20f; maxWindup = 630; cooltime = 0.416625f; cooldownDuration = 3f;
+            // GatlingTurret heat stats(enableHeat, maxHeat, overheatCooltime)
+            enableHeat = false; maxHeat = -1f; overheatCooltime = -1f;
+            // GatlingTurret extra stats(Barrelcount,Barreldist)
+            barrelCount = 4; barrelDist = 3;
+
+
 
             ammo(
                     Items.titanium,  new BasicBulletType(16f, 16){{
