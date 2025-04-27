@@ -13,7 +13,7 @@ import namelessarsenal.world.blocks.defense.turrets.*;
 public class NamelessTurret {
     public static Block
     // tesla coils
-    spark, thunder, lightning, storm, mjollnir, thor,
+    spark, thunder, lightning, storm, mjollnir, thor, tierc,
     // chainguns
     andantino, moderato, allegretto, allegro, vivace, presto, allegrissimo, vivacissimo, prestissimo, tempestissimo,
     // Missile launchers

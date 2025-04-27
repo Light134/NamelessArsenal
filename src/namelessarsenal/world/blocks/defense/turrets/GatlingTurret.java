@@ -3,15 +3,13 @@ package namelessarsenal.world.blocks.defense.turrets;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
-import arc.scene.style.Drawable;
 import arc.util.Time;
+import mindustry.entities.Effect;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.entities.Mover;
 import mindustry.entities.bullet.*;
 import mindustry.graphics.*;
 import mindustry.ui.Bar;
-import namelessarsenal.ui.CustomBar;
-import universecore.graphics.g2d.ScaledNinePatchClipDrawable;
 
 public class GatlingTurret extends ItemTurret {
 
@@ -39,13 +37,25 @@ public class GatlingTurret extends ItemTurret {
     // How much seconds needed to disable overheat. minimum 1.
     public float overheatCooltime = 0f;
 
+    // Whether it stops shooting if overheated (for tier C)
+    public boolean isSuspended = true;
+
+    // Whether it gets damage if overheated
+    public boolean getDamage = false;
+
+    // Damage per second
+    public float overheatDamage;
+
+    // Damage effect
+    public Effect overheatEffect;
+
     public float ui_heat = 0;
     public float ui_windup = 0;
 
     public GatlingTurret(String name) {
         super(name);
         hasItems = true;
-
+        suppressable = true;
 
     }
 
@@ -60,6 +70,7 @@ public class GatlingTurret extends ItemTurret {
                 return (float) ui_windup;
             });
         });
+
         // Heat UI
         if(enableHeat)
         {
@@ -122,12 +133,17 @@ public class GatlingTurret extends ItemTurret {
                 heat = maxHeat;
             }
 
-            if (heatSwitch) overheatReset();
+            if (heatSwitch) {
+                overheatReset();
+                if (getDamage) {
+                    damageContinuous(overheatDamage / 60f);
+                }
+            }
         }
 
         @Override
         protected void shoot(BulletType type) {
-            if(heatSwitch && enableHeat) return;
+            if(heatSwitch && enableHeat && !isSuspended) return;
             super.shoot(type);
 
             if(windup < maxWindup) {
