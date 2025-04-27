@@ -1,6 +1,6 @@
 package namelessarsenal;
 
-import namelessarsenal.contents.Namelessblock;
+import namelessarsenal.contents.NamelessTurret;
 import mindustry.mod.Mod;
 
 public class NamelessArsenal extends Mod{
@@ -11,6 +11,6 @@ public class NamelessArsenal extends Mod{
 
     @Override
     public void loadContent(){
-        Namelessblock.load();
+        NamelessTurret.load();
     }
 }

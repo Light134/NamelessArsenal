@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'kr.lanthanide.mindugradle' version '1.0'
 }
 
 group pGroup
@@ -11,13 +13,16 @@ sourceSets.main {
 
 repositories {
     mavenCentral()
+    maven { url "https://raw.githubusercontent.com/Zelaux/MindustryRepo/master/repository" }
     maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    annotationProcessor 'com.github.Anuken:jabel:0.8.0'
-    compileOnly "com.github.Anuken.Mindustry:core:v136"
-    compileOnly "com.github.Anuken.Arc:arc-core:df1b21ce56"
+    compileOnly "com.github.Anuken.Mindustry:core:v146"
+    compileOnly "com.github.Anuken.Arc:arc-core:v146"
+
+    implementation "com.github.EB-wilson.UniverseCore:graphics:2.3.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 jar {
@@ -84,4 +89,14 @@ tasks.withType(JavaCompile){
         options.compilerArgs.addAll(['--release', '8'])
     }
     compileJava.options.fork = true
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
