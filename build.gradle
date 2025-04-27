@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'kr.lanthanide.mindugradle' version '1.0'
 }
 
 group pGroup
@@ -20,6 +22,7 @@ dependencies {
     compileOnly "com.github.Anuken.Arc:arc-core:v146"
 
     implementation "com.github.EB-wilson.UniverseCore:graphics:2.3.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 jar {
@@ -86,4 +89,14 @@ tasks.withType(JavaCompile){
         options.compilerArgs.addAll(['--release', '8'])
     }
     compileJava.options.fork = true
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }

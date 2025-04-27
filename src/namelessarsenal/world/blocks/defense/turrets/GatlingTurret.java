@@ -3,13 +3,15 @@ package namelessarsenal.world.blocks.defense.turrets;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
-import arc.util.Log;
+import arc.scene.style.Drawable;
 import arc.util.Time;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.entities.Mover;
 import mindustry.entities.bullet.*;
 import mindustry.graphics.*;
 import mindustry.ui.Bar;
+import namelessarsenal.ui.CustomBar;
+import universecore.graphics.g2d.ScaledNinePatchClipDrawable;
 
 public class GatlingTurret extends ItemTurret {
 
@@ -87,10 +89,6 @@ public class GatlingTurret extends ItemTurret {
 
             if (maxHeat < 1) maxHeat = Math.max(1, maxHeat);
             if (overheatCooltime < 1) overheatCooltime = Math.max(1, overheatCooltime);
-
-            Log.info("maxHeat: @", maxHeat);
-            Log.info("overheatCooltime: @", overheatCooltime);
-            Log.info("windup: @",windup);
         }
 
         @Override
@@ -189,6 +187,7 @@ public class GatlingTurret extends ItemTurret {
                 Lines.rect(x - Math.max(16, size * 4), y - 4 - (size * 4), Math.max(32, size * 8), 4);
                 Draw.z(Layer.bullet);
 
+
             }
             Draw.reset();
         }
@@ -211,7 +210,6 @@ public class GatlingTurret extends ItemTurret {
         {
             if (heat != 0) {
                 heat = Math.max(heat - ((Time.delta / 60) * maxHeat) / overheatCooltime, 0);
-                Log.info("heat = @",heat);
             }
             else {
                 heatSwitch = false;

@@ -5,7 +5,7 @@
   "description": "My first java mod which adds turrets and units. Work in progress.",
   "version": "Alpha v0",
   "main": "namelessarsenal.NamelessArsenal",
-  "minGameVersion": "136",
+  "minGameVersion": "146",
   "dependencies": [],
   "hidden": false,
   "java": true
